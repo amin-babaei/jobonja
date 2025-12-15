@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+@custom-variant dark (&:is(.dark, .dark *));
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-xs: 450px;
+  --breakpoint-sm: 680px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1450px;
+
+  --color-bg: light-dark(#f4f5f7, #1a1c25);
+  --color-matn: light-dark(rgb(42 45 83), rgb(210 213 245));
+  --color-primary: light-dark(rgb(74 109 255), rgb(93 132 255));
+  --color-border-main: light-dark(#d6d8e0, #2b2e3a);
+  --color-muted: light-dark(#72758a, #a5a7c8);
+  --color-card: light-dark(#ffffff, #222632);
+
+  --shadow-soft: 0 2px 6px light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.45));
+  --shadow-md: 0 4px 12px light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.55));
+}
+*{
+  word-spacing: -3px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-matn);
+  direction: rtl;
+  @apply antialiased;
+}
+@utility container {
+  padding-inline: 10px;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  @apply rounded-xl p-4;
+}
