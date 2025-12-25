@@ -1,9 +1,7 @@
-import Navbar from "./_components/navbar/Navbar";
-import Footer from "./_components/Footer";
-import "./globals.css";
-import { ThemeProvider } from "./_components/theme/ThemeProvider";
-import localFont from 'next/font/local'
+import { ThemeProvider } from "@components/theme/ThemeProvider";
 import { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -18,12 +16,10 @@ const myFont = localFont({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fa">
-      <body className={`${myFont.className}`}>
+    <html lang="fa-IR">
+      <body className={myFont.className}>
         <ThemeProvider>
-          <Navbar />
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

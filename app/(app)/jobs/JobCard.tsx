@@ -1,5 +1,5 @@
 import { JobPost } from '@typess/index'
-import { toPersianDigits } from '../utils/numberFormatter';
+import { toPersianDigits } from '@utils/numberFormatter';
 import { Banknote, Building2, ClipboardClock, MapPin } from 'lucide-react';
 import { formatCurrency } from "@utils/priceFormatter"
 import Link from 'next/link';

@@ -1,7 +1,7 @@
 "use client"
 import { Swiper, SwiperSlide } from "swiper/react"
 import 'swiper/css';
-import JobCard from "app/jobs/JobCard";
+import JobCard from "../JobCard";
 import { JobPost } from "@typess/index";
 import { Autoplay } from "swiper/modules";
 const RecentJobSlider = ({ jobs }: { jobs: JobPost[] }) => {

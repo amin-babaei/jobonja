@@ -118,7 +118,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
 
           {(clearable && hasValue && !disabled) || rightIcon ? (
-            <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex">
               {clearable && hasValue && !disabled ? (
                 <button
                   type="button"

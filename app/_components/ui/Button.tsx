@@ -49,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
         <Loader2 className="w-5 h-5 animate-spin absolute left-4" />
       )}
 
-      <span>{children}</span>
+      {children}
 
       {!loading && rightIcon && <span>{rightIcon}</span>}
     </button>

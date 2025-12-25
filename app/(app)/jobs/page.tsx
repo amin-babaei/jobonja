@@ -21,6 +21,7 @@ export default async function JobsPage({
     page?: string;
   };
 }) {
+
   const page = (await searchParams).page;
   const currentPage = Math.max(1, Number(page) || 1);
   const offset = (currentPage - 1) * 6;

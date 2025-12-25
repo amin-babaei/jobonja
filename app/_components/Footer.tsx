@@ -1,7 +1,5 @@
-"use client";
 import { Github, Linkedin } from "lucide-react";
 import { Button } from "./ui/Button";
-import { Input } from "./ui/Input";
 import Link from "next/link";
 
 export default function Footer() {
@@ -41,16 +39,16 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-muted">
               <li><Link href="/jobs" className="hover:text-primary transition">فرصت‌های شغلی</Link></li>
               <li><Link href="/about" className="hover:text-primary transition">درباره ما</Link></li>
-              <li><a href="#" className="hover:text-primary transition">تماس با ما</a></li>
-              <li><a href="#" className="hover:text-primary transition">راهنما</a></li>
+              <li><Link href="/about" className="hover:text-primary transition">تماس با ما</Link></li>
+              <li><Link href="/about" className="hover:text-primary transition">راهنما</Link></li>
             </ul>
           </div>
 
           <div className="sm:ml-auto">
             <h4 className="text-sm font-semibold mb-3">برای کارفرما / جوینده</h4>
             <ul className="space-y-2 text-sm text-muted">
-              <li><a href="#" className="hover:text-primary transition">ثبت آگهی</a></li>
-              <li><a href="#" className="hover:text-primary transition">ایجاد حساب کاربری</a></li>
+              <li><Link href="/auth/register/employer" className="hover:text-primary transition">ثبت آگهی</Link></li>
+              <li><Link href="/auth/register/candidate" className="hover:text-primary transition">ایجاد حساب کاربری</Link></li>
               <li><a href="#" className="hover:text-primary transition">پنل کارجو</a></li>
               <li><a href="#" className="hover:text-primary transition">پنل کارفرما</a></li>
             </ul>
@@ -61,14 +59,10 @@ export default function Footer() {
             <p className="text-sm text-muted mb-3">خبرهای شغلی و نکات استخدامی را در ایمیلت دریافت کن.</p>
 
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("متاسفانه فرم نمونه است — اینجا می‌توانی Server Action قرار بدی.");
-              }}
               className="flex gap-2"
             >
               <label htmlFor="newsletter" className="sr-only">ایمیل</label>
-              <Input id="newsletter" type="email" placeholder="ایمیل شما" className="flex-1" required />
+              <input id="newsletter" type="email" placeholder="ایمیل شما"  className="w-full bg-card border border-border-main rounded-lg placeholder:pr-1 focus:outline-none focus:ring-2 focus:ring-blue-200"/>
 
               <Button variant="primary">ارسال</Button>
             </form>
