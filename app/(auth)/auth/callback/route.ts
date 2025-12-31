@@ -2,20 +2,33 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@lib/supabase/createServerClient";
 
 export async function GET(request: Request) {
-    const { searchParams, origin } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get("code");
+  const next = searchParams.get("next") ?? "/";
 
-    const code = searchParams.get("code");
-    const next = searchParams.get("next") ?? "/";
+  if (code) {
+    const supabase = await createSupabaseServerClient();
+    const { error, data } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (code) {
-        const supabase = await createSupabaseServerClient();
+    if (!error && data.session) {
+      const user = data.session.user;
 
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
+      const { data: roleData } = await supabase
+        .from("user_roles")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
 
-        if (!error) {
-            return NextResponse.redirect(`${origin}${next}`);
-        }
+      if (!roleData) {
+        await supabase.from("user_roles").upsert({
+          user_id: user.id,
+          role: "candidate",
+        }, { onConflict: "user_id" });
+      }
+
+      return NextResponse.redirect(`${origin}${next}`);
     }
+  }
 
-    return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }
