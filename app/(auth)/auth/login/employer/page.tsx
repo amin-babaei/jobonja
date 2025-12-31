@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import SummaryEmployer from "../../SummaryEmployer"
 import LoginFormEmployer from "./LoginForm"
 import HeaderAuth from "../../Header";
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: 'ورود کارفرما',
@@ -18,9 +19,9 @@ const page = () => {
 
                     <p className="text-center text-sm text-muted-foreground mt-8">
                         حساب ندارید؟{" "}
-                        <a href="/auth/register/employer" className="text-primary hover:underline font-medium">
+                        <Link href="/auth/register/employer" className="text-primary hover:underline font-medium">
                             بسازید!
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>

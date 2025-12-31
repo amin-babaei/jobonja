@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm"
 import SummearyCandidate from "../../SummaryCandidate"
 import { Metadata } from "next";
 import HeaderAuth from "../../Header";
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: 'ورود کارجو',
@@ -27,9 +28,9 @@ const page = () => {
 
                     <p className="text-center text-sm text-muted-foreground mt-8">
                         حساب ندارید؟{" "}
-                        <a href="/auth/register/candidate" className="text-primary hover:underline font-medium">
+                        <Link href="/auth/register/candidate" className="text-primary hover:underline font-medium">
                             بسازید!
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>

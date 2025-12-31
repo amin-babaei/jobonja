@@ -3,6 +3,7 @@ import RegisterForm from "./RegisterForm";
 import SummaryCandidate from "../../SummaryCandidate";
 import { Metadata } from "next";
 import HeaderAuth from "../../Header";
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: 'ثبت نام کارجو',
@@ -28,9 +29,9 @@ export default function RegisterPage() {
 
                     <p className="text-center text-sm text-muted-foreground mt-8">
                         حساب دارید؟{" "}
-                        <a href="/auth/login/candidate" className="text-primary hover:underline font-medium">
+                        <Link href="/auth/login/candidate" className="text-primary hover:underline font-medium">
                             وارد شوید
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>
