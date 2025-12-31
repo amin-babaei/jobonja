@@ -94,7 +94,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <MobileTabBar user={user} loading={loading} isSigningOut={isPending} onSignOut={signOutAction} />
+            <MobileTabBar user={user} loading={loading} isSigningOut={isPending} onSignOut={signOutAction} role={role}/>
         </>
     );
 };
