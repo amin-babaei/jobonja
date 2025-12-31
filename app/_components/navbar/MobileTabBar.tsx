@@ -7,9 +7,10 @@ interface MobileTabBarProps {
     loading: boolean;
     isSigningOut: boolean;
     onSignOut: () => void;
+    role: string | null;
 }
 
-const MobileTabBar = ({ user, loading, onSignOut, isSigningOut }: MobileTabBarProps) => {
+const MobileTabBar = ({ user, loading, onSignOut, isSigningOut, role }: MobileTabBarProps) => {
 
     if (loading) {
         return (
@@ -41,7 +42,7 @@ const MobileTabBar = ({ user, loading, onSignOut, isSigningOut }: MobileTabBarPr
                 </Link>
                 {user ? (
                     <>
-                        <Link href="/profile" className="sm:hidden">
+                        <Link href={`/profile/${role}`} className="sm:hidden">
                             <button className="flex flex-col items-center text-primary">
                                 <UserIcon size={26} />
                                 <span className="text-xs mt-1">پروفایل</span>
