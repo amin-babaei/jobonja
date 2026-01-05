@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 const page = () => {
     return (
         <div className="min-h-screen flex items-center justify-center">
-            <div className="max-w-3xl w-full bg-card shadow-md rounded-2xl p-10 space-y-6">
+            <div className="max-w-3xl w-full bg-card shadow-md rounded-2xl p-10 space-y-6 my-10 xs:my-0">
                 <h1 className="text-3xl font-bold text-primary text-center">درباره ما</h1>
 
                 <p className="leading-8 text-lg">
