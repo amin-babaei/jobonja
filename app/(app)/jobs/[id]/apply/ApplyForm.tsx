@@ -3,10 +3,13 @@
 import { Button } from "@components/ui/Button";
 import { Input } from "@components/ui/Input";
 import { Upload, CheckCircle, Loader2 } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useTransition } from "react";
 import { applyToJob } from "@lib/actions/JobActions";
 import Link from "next/link";
 import ErrorMessage from "@components/ui/ErrorMessage";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ApplyJobFormData, applyJobSchema } from "@lib/schemas/apply-job.schema";
 
 interface ApplyFormProps {
   jobId: string;
@@ -16,7 +19,29 @@ interface ApplyFormProps {
 
 export default function ApplyForm({ jobId }: ApplyFormProps) {
   const [state, formAction, isPending] = useActionState(applyToJob, { error: null, success: false });
+  const [isTransitionPending, startTransition] = useTransition();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(applyJobSchema),
+    defaultValues: {
+      resume_file: undefined,
+      cover_letter: "",
+    },
+  });
+
+  const onSubmit = (data: ApplyJobFormData) => {
+    startTransition(async () => {
+      const formData = new FormData();
+      formData.append("job_id", jobId);
+      formData.append("resume_file", data.resume_file as File);
+      if (data.cover_letter) formData.append("cover_letter", data.cover_letter);
+      formAction(formData)
+    });
+  };
   if (state.success) {
     return (
       <div className="text-center py-20">
@@ -34,9 +59,11 @@ export default function ApplyForm({ jobId }: ApplyFormProps) {
     );
   }
 
+  const pending = isPending || isTransitionPending;
+
   return (
     <div className="bg-card rounded-2xl shadow-soft p-8">
-      <form action={formAction} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <input type="hidden" name="job_id" value={jobId} />
 
         <div>
@@ -46,12 +73,12 @@ export default function ApplyForm({ jobId }: ApplyFormProps) {
           </p>
           <Input
             type="file"
-            name="resume_file"
             accept=".pdf,.doc,.docx"
-            required
+            {...register("resume_file")}
             className="file:mr-4 file:py-4 file:px-8 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90"
-            disabled={isPending}
+            disabled={pending}
           />
+          {errors.resume_file && <ErrorMessage message={errors.resume_file.message} />}
         </div>
 
         <div>
@@ -60,25 +87,26 @@ export default function ApplyForm({ jobId }: ApplyFormProps) {
             توضیح دهید چرا برای این موقعیت مناسب هستید
           </p>
           <textarea
-            name="cover_letter"
+            {...register("cover_letter")}
             placeholder="مهارت‌ها، تجربیات و انگیزه خود را اینجا بنویسید..."
             rows={8}
-            className="resize-none border border-border-main w-full p-3 rounded-lg focus:outline-2 focus:outline-primary/30"
-            disabled={isPending}
+            className={`resize-none border w-full p-3 rounded-lg focus:outline-2 focus:outline-primary/30 ${errors.cover_letter ? "border-red-500" : "border-border-main"
+              } bg-background`}
+            disabled={pending}
           />
         </div>
 
         {state?.error && (
-          <ErrorMessage message={state.error}/>
+          <ErrorMessage message={state.error} />
         )}
 
         <Button
           type="submit"
           variant="success"
           className="w-full py-4 text-xl font-bold gap-3"
-          disabled={isPending}
+          disabled={pending}
         >
-          {isPending ? (
+          {pending ? (
             <>
               <Loader2 className="animate-spin" size={28} />
               در حال ارسال رزومه...

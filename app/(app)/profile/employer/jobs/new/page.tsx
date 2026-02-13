@@ -18,7 +18,7 @@ export default async function NewJobPage() {
 
   return (
     <div className="container mx-auto py-10 px-4 max-w-4xl">
-      <CreateJobForm employerId={employerData?.id} categories={categoryResult.data} />
+      <CreateJobForm employerId={employerData!.id} categories={categoryResult.data} />
     </div>
   );
 }

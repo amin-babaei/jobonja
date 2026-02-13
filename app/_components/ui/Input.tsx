@@ -1,15 +1,17 @@
 import React, { forwardRef, InputHTMLAttributes, useState } from 'react';
 import { Eye, EyeOff, X } from 'lucide-react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
-  error?: string;
+  error?: FieldError;
   helperText?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   clearable?: boolean;
   onClear?: () => void;
   containerClassName?: string;
+  register?: UseFormRegisterReturn;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -29,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     defaultValue,
     onChange,
     placeholder,
+    register,
     ...rest
   }, ref) => {
     const isControlled = propValue !== undefined;
@@ -95,9 +98,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             type={inputType}
+            {...register}
             {...(isControlled
-              ? { value: value ?? '' }                     
-              : { defaultValue: defaultValue as string } 
+              ? { value: value ?? '' }
+              : { defaultValue: defaultValue as string }
             )}
             onChange={handleChange}
             disabled={disabled}
@@ -136,7 +140,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         {(error || helperText) && (
           <p className={`mt-1 text-sm ${error ? 'text-red-600' : 'text-gray-500'}`}>
-            {error || helperText}
+            {error?.message || helperText}
           </p>
         )}
       </div>
